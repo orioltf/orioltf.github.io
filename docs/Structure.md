@@ -1,0 +1,1 @@
+To do: Explain role of folders and files

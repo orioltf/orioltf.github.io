@@ -1,0 +1,22 @@
+@import "compass";
+@import "normalize";
+@import "fonts";
+
+@media screen {
+	// 3rd party scripts
+	// …
+
+	// Base files
+	@import "global";
+	@import "layout";
+
+	// Overwrites for 3rd party scripts
+	@import "vendor";
+
+	// Modules
+	@import "example/example";
+}
+
+@media print {
+	@import "print";
+}

@@ -1,0 +1,52 @@
+---
+layout: no_layout
+---
+
+- resources = sitemap.resources.sort {|a,b| a.url <=> b.url}
+
+- pages = Array.new
+- modules = Array.new
+
+- resources.each do |resource|
+	- metadata = resource.metadata[:page]
+	- if resource.ext == ".html" && metadata["title"] && !metadata["hide_from_index"]
+		- element = Hash.new
+
+		- element["url"] = resource.url
+		- element["title"] = metadata["title"]
+		- element["desc"] = metadata["desc"]
+
+		- if element["url"].start_with?('/')
+			- element["url"].slice!(0)
+
+		- if element["url"].start_with?('modules/')
+			- modules.push(element)
+		- else 
+			- pages.push(element)
+
+
+%h1 HTML elements
+
+%h2 Pages
+- if pages.length > 0
+	%ul
+		- pages.each do |page|
+			%li
+				%a{:href => page["url"]} #{page["title"]}
+				- if page["desc"]
+					%br
+					= page["desc"]
+- else
+	No pages found.
+
+%h2 Modules
+- if modules.length > 0
+	%ul
+		- modules.each do |component|
+			%li
+				%a{:href => component["url"]} #{component["title"]}
+				- if component["desc"]
+					%br
+					= component["desc"]
+- else
+	No modules found.
