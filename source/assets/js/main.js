@@ -15,14 +15,13 @@
  * Modules
  */
 
-//= require "_unic_module.js"
-//= require "example/_example.js"
+
 
 
 /*!
- * Project init
+ * Site init
  *
- * @author ThJ, Unic AG
+ * @author Orioltf, Oriol Torrent Florensa
  * @copyright All rights reserved
  */
 
@@ -30,6 +29,7 @@
 	'use strict';
 
 	$(function() {
-		
+
 	});
+
 })(window, document, jQuery);
