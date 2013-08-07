@@ -11,26 +11,34 @@
 	%head
 		%meta{:charset => "utf-8"}
 		%meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge, chrome=1"}
-		
-		%title Unic Boilerplate
 
-		%script document.documentElement.className = document.documentElement.className.replace(/(^|\s)no-js(\s|$)/, '$1js$2');
-		
+		%title= data.page.title || "Orioltf"
+
+		/ Why stylesheets should be placed before scripts: http://uxmovement.com/content/why-you-should-place-style-sheets-before-scripts/
 		= stylesheet_link_tag "main", {:media => "all"}
+		- if content_for?(:page_custom_styles)
+			= yield_content :page_custom_styles
+
+		/ Load Modernizr at the head: http://modernizr.com/docs/#installing
 		= javascript_include_tag "head"
+
+		- if content_for?(:page_custom_header_scripts)
+			= yield_content :page_custom_header_scripts
 
 	%body
 		= partial "partials/skiplinks"
-		
+
 		.layout_wrapper
 			.layout_header
 				= partial "partials/header", :locals => {:title => current_page.data.title}
-			
+
 			.layout_content#maincontent
 				= yield
-			
+
 			.layout_footer
 				= partial "partials/footer"
 
 		= partial "partials/jquery_include", :locals => {:version => "1.10.2"}
 		= javascript_include_tag "main"
+		- if content_for?(:page_custom_bottom_scripts)
+			= yield_content :page_custom_bottom_scripts
