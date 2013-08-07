@@ -1,5 +1,6 @@
 %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/#{version}/jquery.js"}
-%script
-	!window.jQuery && document.write(unescape("%3Cscript src='assets/vendor/jquery-#{version}.js' type='text/javascript'%3E%3C/script%3E"));
-%script
+:javascript
+	!window.jQuery && document.write(unescape("%3Cscript src='assets/vendor/jquery-#{version}.js'%3E%3C/script%3E"));
+	//window.jQuery || document.write(unescape("%3Cscript src='/assets/vendor/jquery.js'%3E%3C/script%3E"));
+:javascript
 	jQuery.noConflict();
