@@ -79,7 +79,7 @@ end
 # Blog settings
 ###
 
-Time.zone = "Europe/Bern"
+Time.zone = "Europe/Berlin"
 
 activate :blog do |blog|
 	# set options on blog
