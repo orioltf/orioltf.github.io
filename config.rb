@@ -1,3 +1,4 @@
+
 ###
 # Haml
 ###
@@ -6,33 +7,18 @@
 # See http://haml.info/docs/yardoc/Haml/Options.html
 set :haml, {:attr_wrapper => '"', :format => :html5}
 
+
+
+
+###
+# Markdown
+###
+
 set :markdown_engine, :redcarpet
 set :markdown,  :fenced_code_blocks=>true,
 				:autolink=>true,
 				:smartypants=>true
 
-
-activate :blog do |blog|
-	# set options on blog
-	blog.prefix = "blog"
-	blog.permalink = ":year/:month/:day/:title.html"
-	# blog.sources = ":year-:month-:day-:title.html"
-	# blog.taglink = "tags/:tag.html"
-	blog.layout = "blog"
-	# blog.summary_separator = /(READMORE)/
-	# blog.summary_length = 250
-	# blog.year_link = ":year.html"
-	# blog.month_link = ":year/:month.html"
-	# blog.day_link = ":year/:month/:day.html"
-	# blog.default_extension = ".markdown.erb"
-
-	# blog.tag_template = "tag.html"
-	# blog.calendar_template = "calendar.html"
-
-	# blog.paginate = true
-	# blog.per_page = 10
-	# blog.page_link = "page/:num"
-end
 
 
 
@@ -48,6 +34,8 @@ compass_config do |config|
 end
 
 
+
+
 ###
 # Helpers
 ###
@@ -58,6 +46,8 @@ helpers ApplicationHelper
 
 # Set options for helper "placeholder_tag" (usage like "image_tag")
 set :placeholders_dir, "/tmp/media"
+
+
 
 
 ###
@@ -85,13 +75,51 @@ end
 
 
 
-# We want relative assets
+###
+# Blog settings
+###
+
+Time.zone = "Europe/Bern"
+
+activate :blog do |blog|
+	# set options on blog
+	blog.prefix = "blog"
+	blog.layout = "blog"
+	blog.permalink = ":year/:month/:day/:title.html"
+
+	# blog.sources = ":year-:month-:day-:title.html"
+
+	# blog.tag_template = "tag.html"
+	# blog.taglink = "tags/:tag.html"
+
+	# blog.calendar_template = "calendar.html"
+	# blog.year_link = ":year.html"
+	# blog.month_link = ":year/:month.html"
+	# blog.day_link = ":year/:month/:day.html"
+
+	# blog.summary_separator = /(READMORE)/
+	# blog.summary_length = 250
+
+	# blog.default_extension = ".markdown.erb"
+
+	# blog.paginate = true
+	# blog.per_page = 10
+	# blog.page_link = "page/:num"
+end
+
+# page "/sitemap.xml", :layout => false
+# page "/feed.atom",   :layout => false
+
+
+
+
+# Wanted relative assets
 activate :relative_assets
 
-# For rapid development
+# Quicker development
 activate :livereload
 
-# To get pretty URLs
+# Get pretty URLs
 activate :directory_indexes
 
 
@@ -106,6 +134,20 @@ configure :build do
 	activate :minify_javascript, :compressor => Uglifier.new({
 		# See https://github.com/lautis/uglifier#usage
 	})
+
+	# Enable cache buster
+	activate :cache_buster
+
+	# Use relative URLs
+	activate :relative_assets
+
+	# Compress PNGs after build
+	# First: gem install middleman-smusher
+	# require "middleman-smusher"
+	# activate :smusher
+
+	# Or use a different image path
+	# set :http_path, "/img/"
 
 	# Example: exclude complete plugin
 	#ignore "assets/vendor/fancybox/*"

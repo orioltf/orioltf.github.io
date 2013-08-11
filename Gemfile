@@ -16,3 +16,6 @@ gem "middleman-livereload"
 
 # RedCarpet as a Markdown parser
 gem "redcarpet"
+
+# Deploy Middleman site to Github Pages.
+gem "middleman-gh-pages"
