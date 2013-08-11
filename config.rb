@@ -140,6 +140,7 @@ configure :build do
 
 	# Use relative URLs
 	activate :relative_assets
+	set :relative_links, true
 
 	# Compress PNGs after build
 	# First: gem install middleman-smusher
@@ -152,3 +153,18 @@ configure :build do
 	# Example: exclude complete plugin
 	#ignore "assets/vendor/fancybox/*"
 end
+
+
+
+
+###
+# Deploy configuration
+# To deploy to a remote branch via git (e.g. master on github):
+###
+
+require 'middleman-gh-pages'
+
+# activate :deploy do |deploy|
+# 	deploy.method = :git
+# 	deploy.branch = "master"
+# end
