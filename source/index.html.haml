@@ -1,0 +1,84 @@
+---
+title: "Index Oriol.tf"
+---
+
+- description = current_article.data.summary if current_article and current_article.data.summary
+- content_for :page_custom_header_meta do
+	%meta{ :property => 'og:type', :content => 'website' }
+	%meta{ :property => 'og:locale', :content => 'en_US' }
+	%meta{ :property => 'og:site_name', :content => 'Oriol.tf' }
+	%meta{ :property => 'og:title', :content => 'Oriol.tf' }
+	%meta{ :property => 'og:description', :content => description || "Oriol.tf's personal portfolio and blog. Father, Frontend developer, gadget geek, code writer, photography lover." }
+
+
+%div{ :itemscope => '', :itemtype => 'http://schema.org/Blog' }
+
+	- blog.articles[0...10].each do |article|
+
+		- date = article.date.strftime('%b %e, %Y')
+		- plain_date = article.date.strftime('%Y-%m-%d')
+
+		%article.post{ :itemprop => 'blogPost', :itemscope => '', :itemtype => 'http://schema.org/BlogPosting' }
+			%h1.title{ :itemprop => 'name' }
+				%a{:href => article.url}
+					= article.title.titlecase
+			.meta
+				.date
+					%time{ :datetime => "#{plain_date}", :itemprop => "datePublished" }
+						= date
+				%span.comments
+					%a{ :href => "#{article.url}#disqus_thread" } Comments
+			.entry-content{ :itemprop => "articleBody" }
+				- if article.data.summary
+					= article.data.summary
+					%a.more-link{ :href => "#{article.url}" } Read more &#8594;
+
+
+/ - resources = sitemap.resources.sort {|a,b| a.url <=> b.url}
+
+/ - pages = Array.new
+/ - modules = Array.new
+
+/ - resources.each do |resource|
+/ 	- metadata = resource.metadata[:page]
+/ 	- if resource.ext == ".html" && metadata["title"] && !metadata["hide_from_index"]
+/ 		- element = Hash.new
+
+/ 		- element["url"] = resource.url
+/ 		- element["title"] = metadata["title"]
+/ 		- element["desc"] = metadata["desc"]
+
+/ 		- if element["url"].start_with?('/')
+/ 			- element["url"].slice!(0)
+
+/ 		- if element["url"].start_with?('modules/')
+/ 			- modules.push(element)
+/ 		- else
+/ 			- pages.push(element)
+
+
+/ %h1 HTML elements
+
+/ %h2 Pages
+/ - if pages.length > 0
+/ 	%ul
+/ 		- pages.each do |page|
+/ 			%li
+/ 				%a{:href => page["url"]} #{page["title"]}
+/ 				- if page["desc"]
+/ 					%br
+/ 					= page["desc"]
+/ - else
+/ 	No pages found.
+
+/ %h2 Modules
+/ - if modules.length > 0
+/ 	%ul
+/ 		- modules.each do |component|
+/ 			%li
+/ 				%a{:href => component["url"]} #{component["title"]}
+/ 				- if component["desc"]
+/ 					%br
+/ 					= component["desc"]
+/ - else
+/ 	No modules found.
