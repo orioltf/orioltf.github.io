@@ -1,0 +1,32 @@
+// *** = = = = = = = = = = = = = = = = = = = = = = ***
+// Width with REM
+
+@mixin width($sizeValue: 1.6){
+	width: ($sizeValue * 1) + px;
+	width: ($sizeValue / 16) + rem;
+}
+
+// *** = = = = = = = = = = = = = = = = = = = = = = ***
+// Height with REM
+
+@mixin height($sizeValue: 1.6){
+	height: ($sizeValue * 1) + px;
+	height: ($sizeValue / 16) + rem;
+}
+
+// *** = = = = = = = = = = = = = = = = = = = = = = ***
+// margins with TOP margin for vertical grid
+@mixin gridmarg-S {
+	margin: $gridmt-S 0 0;
+}
+
+@mixin gridmarg-M {
+	margin: $gridmt-M 0 0;
+}
+
+@mixin gridmarg-L {
+	margin: $gridmt-L 0 0;
+}
+@mixin gridmarg-XL {
+	margin: $gridmt-XL 0 0;
+}

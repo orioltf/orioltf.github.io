@@ -1,0 +1,31 @@
+/**
+ * Default variables
+ */
+
+$sizeFontBase   : 12px;
+$lineHeightBase : 1.5;
+
+$fontBase       : "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$colorBgBody    : #fff;
+
+
+// Breakpoint variables - all calculated on 16px body font
+$XXS: 18em; // 288px
+$XS: 20em; // 320px
+$S: 30em; // 480px
+$M: 43.125em; // 690px
+$L: 61.25em; // 980px
+$XL: 64em; // 1024
+$XXL: 80em; // 1280px
+
+// Layout / Grid issues: mt = margin top
+$gridmt-S: 20px;
+$gridmt-M: 24px;
+$gridmt-L: 30px;
+$gridmt-XL: 40px;
+
+
+
+
+$leftColWidth   : 25%;

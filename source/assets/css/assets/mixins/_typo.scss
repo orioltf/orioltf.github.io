@@ -1,0 +1,67 @@
+// *** = = = = = = = = = = = = = = = = = = = = = = ***
+// Font-size with REM
+
+@mixin font-size($sizeValue: 1.6){
+	font-size: ($sizeValue * 1) + px;
+	font-size: ($sizeValue / 16) + rem;
+}
+
+// *** = = = = = = = = = = = = = = = = = = = = = = ***
+// Hyphenation; used with placeholder!
+@mixin hyphens {
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+	-o-hyphens: auto;
+	hyphens: auto;
+}
+
+// *** = = = = = = = = = = = = = = = = = = = = = = ***
+// Google fonts
+	/**
+	 * Mixins for each font.
+	 *
+	 * We have to combine 2 font-face methods:
+	 * 1) Linking Styles, used by the stylesheets served by Google. Incompatible with IE.
+	 * 2) Independent Styles, used by local styles and fonts. Compatible with IE.
+	 *
+	 * Appart from the fallback fonts (from Arial onwards), we use several font names:
+	 * a) The independent names from method 2 come first. They will be valid if no google or no connection, and IE compatible.
+	 * b) The google names come afterwards.
+	 */
+
+	@mixin source_sans_pro_italic($fontSize: false) {
+		.wf-sourcesanspro-i4-active &, .wf-local & {
+			font-family: "source_sans_proitalic", "Source Sans Pro", Arial, 'Helvetica Neue', Helvetica, sans-serif;
+			font-weight: 400;
+			font-style: italic;
+			@if $fontSize {font-size: $fontSize;}
+		}
+	}
+
+	@mixin source_sans_pro_regular($fontSize: false) {
+		.wf-sourcesanspro-n4-active &, .wf-local & {
+			font-family: "source_sans_proregular", "Source Sans Pro", Arial, 'Helvetica Neue', Helvetica, sans-serif;
+			font-weight: 400;
+			font-style: normal;
+			@if $fontSize {font-size: $fontSize;}
+		}
+	}
+
+	@mixin source_sans_pro_bold($fontSize: false) {
+		.wf-sourcesanspro-n7-active &, .wf-local & {
+			font-family: "source_sans_prosemibold", "Source Sans Pro", Arial, 'Helvetica Neue', Helvetica, sans-serif;
+			font-weight: 700;
+			font-style: normal;
+			@if $fontSize {font-size: $fontSize;}
+		}
+	}
+
+	@mixin source_sans_pro_bold_italic($fontSize: false) {
+		.wf-sourcesanspro-i7-active &, .wf-local & {
+			font-family: "source_sans_proSBdIt", "Source Sans Pro", Arial, 'Helvetica Neue', Helvetica, sans-serif;
+			font-weight: 700;
+			font-style: italic;
+			@if $fontSize {font-size: $fontSize;}
+		}
+	}
