@@ -1,0 +1,13 @@
+body {
+	background-color: #f1f1f1;
+	color: rgba(0,0,0,0.5);
+}
+
+.layout_header {
+	@include single-transition(all, 0.25, ease-in);
+	text-shasdow: 0 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.layout_content {
+	background-color: #ffffff;
+}

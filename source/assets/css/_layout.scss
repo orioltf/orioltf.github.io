@@ -1,8 +1,3 @@
-// Variables are always defined at the top of a file
-// Colors are prefixed with "color", sizes with "size"
-$colorBgBody: #fff;
-
-
 body {
 	background: $colorBgBody;
 	font-family: $fontBase;
@@ -15,8 +10,42 @@ body {
 	ul {
 		@extend %reset_list;
 	}
-	
+
 	a {
 		@extend %visuallyhidden_focusable;
 	}
+}
+
+
+*,
+*:before,
+*:after {
+	@include box-sizing(border-box);
+}
+
+body {
+	@extend %clearfix;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+
+.layout_header {
+	position: fixed;
+	width: $leftColWidth;
+	height: 100%;
+	& > header {
+	}
+}
+.layout_content {
+	@extend %contentblock;
+	min-height: 100%;
+	padding-left: 40px;
+	padding-right: 70px;
+	margin-left: $leftColWidth;
+}
+.layout_header, .layout_content {
 }
