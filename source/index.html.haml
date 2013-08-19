@@ -1,5 +1,6 @@
 ---
 title: "Index Oriol.tf"
+description: "Oriol.tf's personal portfolio and blog. Father, Frontend developer, gadget geek, code writer, photography lover."
 ---
 
 - description = current_article.data.summary if current_article and current_article.data.summary
@@ -8,7 +9,7 @@ title: "Index Oriol.tf"
 	%meta{ :property => 'og:locale', :content => 'en_US' }
 	%meta{ :property => 'og:site_name', :content => 'Oriol.tf' }
 	%meta{ :property => 'og:title', :content => 'Oriol.tf' }
-	%meta{ :property => 'og:description', :content => description || "Oriol.tf's personal portfolio and blog. Father, Frontend developer, gadget geek, code writer, photography lover." }
+	%meta{ :property => 'og:description', :content => current_page.data.description }
 
 
 %div{ :itemscope => '', :itemtype => 'http://schema.org/Blog' }
