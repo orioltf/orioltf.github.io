@@ -12,11 +12,12 @@
 		%meta{ :charset=>"utf-8" }
 
 		- path = 'http://orioltf.com/' + request.path
-		- title = current_page.data.title + " || " if current_page.data.title
+		- title1 = current_page.data.title + " || " if current_page.data.title
+		- title = title1.to_s + "Oriol.tf"
 		- description = current_article.data.summary if current_article and current_article.data.summary
 		- keywords = current_article.data.tags if current_article and current_article.data.tags
 
-		%title= title.to_s + "Oriol.tf"
+		%title= title
 
 		%meta{ :"http-equiv"=>"X-UA-Compatible", :content=> "IE=edge, chrome=1" }
 		%meta{ :name=> "HandheldFriendly", :content=> "True" }
@@ -52,12 +53,11 @@
 	%body
 		= partial "partials/skiplinks"
 
-		.layout_wrapper
-			.layout_header
-				= partial "partials/header", :locals=> {:title=> current_page.data.title}
+		.layout_header
+			= partial "partials/header", :locals=> {:title=> title}
 
-			.layout_content#maincontent
-				= yield
+		.layout_content#maincontent
+			= yield
 
 			.layout_footer
 				= partial "partials/footer"
