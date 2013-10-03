@@ -13,6 +13,9 @@ body {
 
 	a {
 		@extend %visuallyhidden_focusable;
+		&:focus {
+			position: absolute;
+		}
 	}
 }
 
@@ -33,6 +36,10 @@ body {
 }
 
 
+
+/*** = = = = = = = = = = = = = = = = = = = = = = ***/
+// 2 columns layout
+
 .layout_header {
 	position: fixed;
 	width: $leftColWidth;
@@ -43,9 +50,16 @@ body {
 .layout_content {
 	@extend %contentblock;
 	min-height: 100%;
-	padding-left: 40px;
-	padding-right: 70px;
+	padding-left: 100px;
+	padding-right: 140px;
 	margin-left: $leftColWidth;
 }
 .layout_header, .layout_content {
 }
+
+
+
+/*** = = = = = = = = = = = = = = = = = = = = = = ***/
+// Navigatio module
+
+.mod-menu-main {}
