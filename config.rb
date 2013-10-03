@@ -14,10 +14,17 @@ set :haml, {:attr_wrapper => '"', :format => :html5}
 # Markdown
 ###
 
-set :markdown_engine, :redcarpet
-set :markdown,  :fenced_code_blocks=>true,
-				:autolink=>true,
-				:smartypants=>true
+# set :markdown_engine, :redcarpet
+# set :markdown,  :fenced_code_blocks=>true,
+# 				:autolink=>true,
+# 				:smartypants=>true
+# Kramdown seems to play nicer with Rouge for syntax highlighting
+set :markdown_engine, :kramdown
+set :markdown, :layout_engine => :haml,
+				:tables => true,
+				:autolink => true,
+				:smartypants => true,
+				:fenced_code_blocks=>true
 
 
 
@@ -121,6 +128,13 @@ activate :livereload
 
 # Get pretty URLs
 activate :directory_indexes
+
+# Code highlighting
+# This was for Pygments
+# activate :syntax, lineanchors: 'line'
+# This is for Rouge
+activate :syntax, line_numbers: true
+
 
 
 
