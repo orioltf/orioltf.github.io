@@ -15,6 +15,11 @@
 # Ignore Sass' cache
 .sass-cache
 
+# Ignore config.rb created by LiveReload+Subl in every folder
+# except the one in the root, that has to be tracked
+config.rb
+!/config.rb
+
 # Ignore the build directory
 /build
 
