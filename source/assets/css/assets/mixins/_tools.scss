@@ -3,7 +3,7 @@
  *
  * http://nicolasgallagher.com/micro-clearfix-hack/
 */
-@mixin microclearfix {
+%clearfix {
 	*zoom: 1;
 	&:before,
 	&:after {
@@ -83,6 +83,28 @@ nav {
 
 
 /**
+ * Lists with layout purpose
+ */
+%justified_list {
+	text-align: justify;
+	&:after {
+		content: '';
+		display: inline-block;
+		width: 100%;
+	}
+	& > li {
+		display: inline-block;
+	}
+	// Avoid extra space
+
+}
+
+
+
+
+
+
+/**
  * Block formatting context
  */
 %contentblock {
@@ -103,6 +125,12 @@ $experimental: true !default;
 	}
 	transition: $property $speed $ease;
 }
+// *** = = = = = = = = = = = = = = = = = = = = = = ***
+// *SIMPLE* transition
+%transition_simple {
+	@include single-transition(all, .5s, ease-in-out);
+}
+
 
 // We use this to add box-sizing across browser prefixes
 @mixin box-sizing($type:border-box) {
