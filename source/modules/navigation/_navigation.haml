@@ -1,0 +1,6 @@
+%nav.mod-menu-main
+	%ul.menu
+		- data.navigation.each_with_index do |nav,i|
+			%li{:class => (data.page.menuActive==nav.name ? 'active' : nil), :hidden => (nav.shown == true ? nil : '')}
+				%a{:href => "#{nav.href}"}
+					= escape_html("#{nav.name}")

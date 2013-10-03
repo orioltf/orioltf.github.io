@@ -1,0 +1,18 @@
+%navigation_lists_in_leftCol {
+	& > ul {
+		margin-right: $leftColmargin;
+		margin-left: $leftColmargin;
+		@extend %justified_list;
+	}
+}
+
+.mod-menu-main {
+	@include roboto-condensed-light;
+	text-transform: uppercase;
+	@extend %navigation_lists_in_leftCol;
+}
+
+.mod-social {
+	@extend %navigation_lists_in_leftCol;
+
+}

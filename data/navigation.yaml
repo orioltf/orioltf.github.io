@@ -1,0 +1,9 @@
+- name: "Blog"
+  href: "/"
+  shown: true
+- name: "WebShots"
+  href: "/web-portfolio"
+  shown: true
+- name: "PhotoShots"
+  href: "/photo-portfolio"
+  shown: true
