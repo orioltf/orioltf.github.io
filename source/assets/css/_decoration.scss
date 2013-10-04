@@ -1,11 +1,42 @@
 body {
 	background-color: #f1f1f1;
-	color: rgba(0,0,0,0.5);
+	color: #333;
+}
+
+#{headings()}, #{nest("#{headings()}", "a")} {
+	color: $colorMain;
+	text-decoration: none;
+}
+
+h1 {
+	// font-size: pxToEm(38);
 }
 
 .layout_header {
 	@include single-transition(all, 0.25, ease-in);
-	text-shasdow: 0 1px 0 rgba(0, 0, 0, 0.15);
+	// text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+	text-shadow: 0 1px 0 #fff;
+
+	& h1,
+	& .profilepic {
+		text-align: center;
+		margin-bottom: pxToEm(34);
+		margin-top: pxToEm(34);
+	}
+
+	& h1 {
+		font-weight: normal;
+		letter-spacing: -1px;
+		& > a {
+			text-shadow: 0 1px 0 #fff;
+			text-decoration: none;
+		}
+	}
+
+	& .subtitle {
+		padding-left: $leftColmargin;
+		padding-right: $leftColmargin;
+	}
 }
 
 .layout_content {
