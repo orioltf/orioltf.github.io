@@ -33,6 +33,12 @@ h1 {
 		}
 	}
 
+	& .profilepic {
+		& img {
+			max-width: 50%;
+		}
+	}
+
 	& .subtitle {
 		padding-left: $leftColmargin;
 		padding-right: $leftColmargin;
