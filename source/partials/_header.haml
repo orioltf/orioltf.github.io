@@ -1,2 +1,19 @@
-- title = current_page.data.title if current_page.data.title
-%h1 #{title.to_s}
+%header
+	-#%h1
+		-#%a{ :href => '/' } Oriol.tf
+
+	.profilepic
+		%img{ :src => '/assets/media/orioltf-avatar.png', :alt => 'Profile Picture' }
+
+
+	= partial "modules/navigation/navigation"
+
+	%p.subtitle
+		I write code.
+
+	%p.subtitle
+		I am frontend engineer living in Zürich, backed in Barcelona. I work at
+		%a{ :href => 'http://unic.com'} Unic.
+		I'm father of a cute baby and a lifetime learner from everything frontend related.
+
+	= partial "modules/navigation/social"
