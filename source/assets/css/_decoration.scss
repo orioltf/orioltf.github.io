@@ -47,4 +47,7 @@ h1 {
 
 .layout_content {
 	background-color: #ffffff;
+	& img {
+		@include single-box-shadow;
+	}
 }
