@@ -1,6 +1,6 @@
 ---
 title: Implementing Webfonts with local fallback
-date: 2014-08-30 19:20 CEST
+date: 3000-08-30 19:20 CEST
 tags: Frontend tools
 summary: Google web fonts, or any other service, are great to add web fonts to your site. Nevertheless, you may want to have either the security to be independent from Google in case that their servers ever were down, or you to be able to develop your site in a completely off-line modus. Or even both at the same time.
 published: false
