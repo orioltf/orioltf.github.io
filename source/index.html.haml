@@ -28,8 +28,8 @@ menuActive: Blog
 				.date
 					%time{ :datetime => "#{plain_date}", :itemprop => "datePublished" }
 						= date
-				%span.comments
-					%a{ :href => "#{article.url}#disqus_thread" } Comments
+				-# %span.comments
+					-# %a{ :href => "#{article.url}#disqus_thread" } Comments
 			.entry-content{ :itemprop => "articleBody" }
 				- if article.data.summary
 					= article.data.summary
