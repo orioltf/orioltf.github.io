@@ -44,7 +44,6 @@
 		- if content_for?(:page_custom_styles)
 			= yield_content :page_custom_styles
 
-		/ Load Modernizr at the head: http://modernizr.com/docs/#installing
 		= javascript_include_tag "orioltf_head"
 
 		- if content_for?(:page_custom_header_scripts)
@@ -63,6 +62,7 @@
 				= partial "partials/footer"
 
 		= partial "partials/jquery_include", :locals=> {:version=> "1.10.2"}
+		= partial "partials/webfonts_include"
 		= javascript_include_tag "orioltf"
 		- if content_for?(:page_custom_bottom_scripts)
 			= yield_content :page_custom_bottom_scripts

@@ -15,6 +15,12 @@
 	-o-hyphens: auto;
 	hyphens: auto;
 }
+%hyphens {
+	@include hyphens;
+}
+
+
+
 
 // *** = = = = = = = = = = = = = = = = = = = = = = ***
 // Google fonts
@@ -30,38 +36,45 @@
 	 * b) The google names come afterwards.
 	 */
 
-	@mixin source_sans_pro_italic($fontSize: false) {
-		.wf-sourcesanspro-i4-active &, .wf-local & {
-			font-family: "source_sans_proitalic", "Source Sans Pro", Arial, 'Helvetica Neue', Helvetica, sans-serif;
-			font-weight: 400;
-			font-style: italic;
-			@if $fontSize {font-size: $fontSize;}
-		}
-	}
-
-	@mixin source_sans_pro_regular($fontSize: false) {
-		.wf-sourcesanspro-n4-active &, .wf-local & {
-			font-family: "source_sans_proregular", "Source Sans Pro", Arial, 'Helvetica Neue', Helvetica, sans-serif;
-			font-weight: 400;
+	@mixin ssp-light($fontSize: false) {
+		.wf-sourcesanspro-n3-active &, .wf-local & {
+			font-family: "source_sans_prolight", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 300;
 			font-style: normal;
 			@if $fontSize {font-size: $fontSize;}
 		}
 	}
-
-	@mixin source_sans_pro_bold($fontSize: false) {
-		.wf-sourcesanspro-n7-active &, .wf-local & {
-			font-family: "source_sans_prosemibold", "Source Sans Pro", Arial, 'Helvetica Neue', Helvetica, sans-serif;
-			font-weight: 700;
+	@mixin ssp-bold($fontSize: false) {
+		.wf-sourcesanspro-n6-active &, .wf-local & {
+			font-family: "source_sans_prosemibold", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 600;
 			font-style: normal;
+			// -webkit-font-smoothing: antialiased;
 			@if $fontSize {font-size: $fontSize;}
 		}
 	}
-
-	@mixin source_sans_pro_bold_italic($fontSize: false) {
-		.wf-sourcesanspro-i7-active &, .wf-local & {
-			font-family: "source_sans_proSBdIt", "Source Sans Pro", Arial, 'Helvetica Neue', Helvetica, sans-serif;
-			font-weight: 700;
+	@mixin ssp-light-italic($fontSize: false) {
+		.wf-sourcesanspro-i3-active &, .wf-local & {
+			font-family: 'source_sans_prolight_italic', "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 300;
 			font-style: italic;
+			@if $fontSize {font-size: $fontSize;}
+		}
+	}
+	@mixin ssp-bold-italic($fontSize: false) {
+		.wf-sourcesanspro-i6-active &, .wf-local & {
+			font-family: 'source_sans_proSBdIt', "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 600;
+			font-style: italic;
+			// -webkit-font-smoothing: antialiased;
+			@if $fontSize {font-size: $fontSize;}
+		}
+	}
+	@mixin roboto-slab-light($fontSize: false) {
+		.wf-robotoslab-n3-active &, .wf-local & {
+			font-family: "roboto_slablight", "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 300;
+			font-style: normal;
 			@if $fontSize {font-size: $fontSize;}
 		}
 	}

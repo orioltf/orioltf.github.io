@@ -1,0 +1,26 @@
+<!--[if lt IE 9]>
+-# We need this for IE<9 because they don't get the onerror event on objects
+:javascript
+	if (!window.WebFont){
+		var wf, s;
+		wf = document.createElement('link');
+		wf.href = '/assets/vendor/googleFonts/fonts.css';
+		wf.type = 'text/css';
+		wf.rel = 'stylesheet';
+		wf.media = 'all';
+		s = document.getElementsByTagName('link')[0];
+		s.parentNode.insertBefore(wf, s);
+		document.getElementsByTagName('html')[0].className += ' wf-local';
+		if(window.jQuery) {
+			clearTimeout(t);
+			jQuery(document).trigger('wfActive');
+		} else {
+			t = setTimeout(function() {
+				if(window.jQuery) {
+					clearTimeout(t);
+					jQuery(document).trigger('wfActive');
+				}
+			},500);
+		}
+	}
+<![endif]-->

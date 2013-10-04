@@ -8,6 +8,8 @@
 
 //= require "_skiplinks.js"
 //= require "_console.js"
+// Load Google fonts in the head to avoid flickering when fonts are loaded
+//= require "googleFonts/_fonts.js"
 //= require "_vendor.js"
 
 

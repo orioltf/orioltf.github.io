@@ -1,1 +1,60 @@
 /* Overwrite vendor styles here */
+
+/* Google fonts */
+	/* When WebFonts are loaded the .wf-active class is set in html, so we change the fonts path. */
+	/* If Google or devs ever go offline... we add the class .wf-local */
+	body {@include ssp-light;}
+	strong, b {@include ssp-bold;}
+	em, i {@include ssp-light-italic;}
+	strong > em, em > strong,
+	strong > i, i > strong,
+	b > em, em > b,
+	b > i, i > b {@include ssp-bold-italic;}
+	#{headings()} {@include roboto-slab-light;}
+//	h4 {@include roboto-condensed-light;}
+//	h5 {@include roboto-condensed-regular;}
+
+
+
+/*
+ * Fix Github color scheme
+ * http://alexpeattie.com/blog/better-syntax-highlighting-with-rouge/
+ * https://github.com/richleland/pygments-css/blob/master/github.css
+ */
+.hll { background-color: #ffffcc } /* WRONG */
+.highlight { background-color: #ffffff } /* RIGHT */
+
+// add a little extra CSS to style our <pre>, add some extra padding, and prettify the line numbers a bit.
+pre {
+	border: solid 1px #ddd;
+	@include border-radius(4px);
+	background: #fff;
+	padding: 0;
+	// line-height: 23px;
+	margin-bottom: 30px;
+	white-space: pre;
+	overflow-x: auto;
+	word-break: inherit;
+	word-wrap: inherit;
+}
+pre.highlight {
+	font-size: pxToEm(15);
+}
+
+.highlight td {
+		padding: 8px 15px !important;
+}
+
+.gl {
+	background: #fafafa;
+	border-right: 1px solid #ddd;
+	color: #999;
+
+	/* Stop line numbers being visually selected */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
