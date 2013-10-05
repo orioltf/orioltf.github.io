@@ -176,9 +176,9 @@ end
 # To deploy to a remote branch via git (e.g. master on github):
 ###
 
-# require 'middleman-gh-pages'
+require 'middleman-gh-pages'
 
-# activate :deploy do |deploy|
-# 	deploy.method = :git
-# 	deploy.branch = "master"
-# end
+activate :deploy do |deploy|
+	deploy.method = :git
+	deploy.branch = "master"
+end
