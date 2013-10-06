@@ -22,4 +22,5 @@ gem "middleman-livereload"
 gem "kramdown"
 
 # Deploy Middleman site to Github Pages.
-gem "middleman-gh-pages"
+# gem "middleman-gh-pages"
+gem "middleman-deploy"
