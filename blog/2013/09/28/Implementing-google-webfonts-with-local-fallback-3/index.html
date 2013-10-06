@@ -1,0 +1,225 @@
+<!--[if IE]>  <![endif]-->
+<!DOCTYPE html>
+<!--[if lte IE 6]> <html lang="en" class="no-js ie ie6 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="no-js ie ie7 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="no-js ie ie8 lte-ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="no-js ie ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>Implementing Webfonts with local fallback 3 || Oriol.tf</title>
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="True" name="HandheldFriendly">
+    <meta content="320" name="MobileOptimized">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Oriol.tf | Oriol Torrent Florensa" name="author">
+    <meta content="Third and last part from the series on how to implement Webfonts with local fallback. Once we have the font files ready, and the fonts included in our project with its fallbacks we can start using them." name="description">
+    <meta content="Frontend tools" name="keywords">
+    <link href="/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="http://orioltf.com/feed.atom" rel="alternate" title="Oriol.tf&amp;#039;s RSS Feed" type="application/atom+xml">
+    <link href="/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml">
+    <link href="http://orioltf.com/blog/2013/09/28/Implementing-google-webfonts-with-local-fallback-3/" rel="canonical">
+    <!-- Why stylesheets should be placed before scripts: http://uxmovement.com/content/why-you-should-place-style-sheets-before-scripts/ -->
+    <link href="../../../../../assets/css/orioltf.css?1381092531" media="all" rel="stylesheet" type="text/css" />
+    <script src="../../../../../assets/js/orioltf_head.js?1381092528" type="text/javascript"></script>
+  </head>
+  <body>
+    <!-- TODO: Define link targets -->
+    <div class="mod_skiplinks">
+      <ul>
+        <li>
+          <a accesskey="0" href="/" title="[ALT + 0]">Start page</a>
+        </li>
+        <li>
+          <a accesskey="1" href="#mainnav" title="[ALT + 1]">Skip to main navigation</a>
+        </li>
+        <li>
+          <a accesskey="2" href="#maincontent" title="[ALT + 2]">Skip to content</a>
+        </li>
+        <li>
+          <a accesskey="3" href="TO BE DEFINED" title="[ALT + 3]">Contact page</a>
+        </li>
+        <li>
+          <a accesskey="4" href="TO BE DEFINED" title="[ALT + 4]">Sitemap page</a>
+        </li>
+        <li>
+          <a accesskey="5" href="#search" title="[ALT + 5]">Skip to search</a>
+        </li>
+      </ul>
+    </div>
+    <div class="layout_header">
+      <header>
+        <div class="profilepic">
+          <img alt="Profile Picture" src="/assets/media/orioltf-avatar.png">
+        </div>
+        <nav class="mod-menu-main">
+          <ul class="menu">
+            <li>
+              <a href="/">
+                Blog
+              </a>
+            </li>
+            <li>
+              <a href="/web-portfolio">
+                WebShots
+              </a>
+            </li>
+            <li>
+              <a href="/photo-portfolio">
+                PhotoShots
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <p class="subtitle">
+          I write code.
+        </p>
+        <p class="subtitle">
+          I am frontend engineer living in Zürich, backed in Barcelona. I work at
+          <a href="http://unic.com">Unic.</a>
+          I'm father of a cute baby and a lifetime learner from everything frontend related.
+        </p>
+        <nav class="mod-social" id="sub-nav">
+          <ul>
+            <li>
+              <a class="google" href="http://gplus.to/orioltf" title="Google+">Google+</a>
+            </li>
+            <li>
+              <a class="twitter" href="http://www.twitter.com/orioltf" title="Twitter">Twitter</a>
+            </li>
+            <li>
+              <a class="github" href="http://www.github.com/orioltf" title="GitHub">GitHub</a>
+            </li>
+            <li>
+              <a class="linkedin" href="http://www.linkedin.com/in/oriol.torrent" title="LinkedIn">LinkedIn</a>
+            </li>
+            <li>
+              <a class="xing" href="http://www.xing.com/in/oriol.torrent" title="LinkedIn">Xing</a>
+            </li>
+            <li>
+              <a class="rss" href="/feed.atom" title="RSS">RSS</a>
+            </li>
+            <li>
+              <div class="no_facebook">No facebook</div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <div class="layout_content" id="maincontent">
+      <article>
+        <h1>
+          Implementing Webfonts with local fallback 3
+        </h1>
+        <p>This is the third and last part of a series on <strong>how to implement Webfonts with local fallback</strong>. Please check the previoes articles about <a href="/blog/2013/08/30/Implementing-google-webfonts-with-local-fallback/">preparing fonts</a> and <a href="/blog/2013/09/14/Implementing-google-webfonts-with-local-fallback-2/">including them in the project</a> in order to get your project ready before start using them. In this article we will be creating some compass mixins to easily create the <em>combined method</em> <a href="/blog/2013/09/14/Implementing-google-webfonts-with-local-fallback/#understanding-the-method">already explained</a>.</p>
+        
+        <h2 id="setup-the-cascading-styles">6. Setup the cascading styles</h2>
+        
+        <p>When configuring font styles the first thing will be to declare a default font-family group of fonts. This declaration should include those system font families that will act as fallback in the improvable case that everything else would fail.</p>
+        
+        <p>So the first piece of CSS could be:</p>
+        
+        <pre class="highlight css"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div></td><td class="code"><span class="nt">body</span> <span class="p">{</span>
+        	<span class="nl">font-family</span><span class="p">:</span> <span class="s1">&quot;Helvetica Neue&quot;</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="n">Arial</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+        	<span class="nl">font-size</span><span class="p">:</span> <span class="m">100</span><span class="err">%</span><span class="p">;</span>
+        	<span class="nl">line-height</span><span class="p">:</span> <span class="m">1.5</span><span class="p">;</span>
+        <span class="p">}</span>
+        </td></tr></tbody></table></pre>
+        <p>Then, we will create some compass mixins to declare the font definitions. I post here the compass solution because this is my work-flow, though you could probably do the same in less, and for sure you can achieve the same in plain CSS.</p>
+        
+        <p>These mixins will help us setting any CSS declaration bound to the font classes set in the HTML element by the Web Font Loader. So if the classes are set or not, our web can react accordingly.  To clearly get which are these classes, inspect your page with the previous steps already implemented. In the HTML node of your inspector you ‘ll see a good amount of CSS classes. Get the ones related to web fonts, which will have a “wf-“ prefix. In my case:</p>
+        
+        <ul>
+          <li>wf-sourcesanspro-n3-active</li>
+          <li>wf-sourcesanspro-n6-active</li>
+          <li>wf-sourcesanspro-i3-active</li>
+          <li>wf-sourcesanspro-i6-active</li>
+          <li>wf-robotoslab-n3-active</li>
+          <li>wf-active</li>
+        </ul>
+        
+        <p>If you cut any Internet connection and reload the page, you’ll see that all these classes are gone, and there’s just one in replacement:</p>
+        
+        <ul>
+          <li>wf-local</li>
+        </ul>
+        
+        <p>Therefor, each font-family will get its own mixin, bound to its own class. And since we are using the <strong>combined method</strong> to match font-family name with font files (Style-linking and name-matching), we’ll have to give also font-weight and font-style.</p>
+        
+        <p>Then in the mixin we’ll set a font-family attribute with an appropriate list of fallback fonts, in this sequence:</p>
+        
+        <ol>
+          <li>The <strong>font-family name</strong> specified in the @font-face definition <strong>from the local css file</strong>.</li>
+          <li>The <strong>font-family name</strong> specified in the @font-face definition from the css file <strong>from Google</strong> (when there is connection). You can get it with your inspector. Notice that the font-family names there, are the same regardless of what Web font file is being accessed, and the font-weight and font-style are used to match the proper file. This is called <strong>style linking</strong>.</li>
+          <li>The <strong>rest of</strong> the fallback <strong>font-families defined before</strong>.</li>
+        </ol>
+        
+        <pre class="highlight scss"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div></td><td class="code"><span class="k">@mixin</span> <span class="nf">ssp-light</span><span class="p">(</span><span class="nv">$fontSize</span><span class="o">:</span> <span class="n">false</span><span class="p">)</span> <span class="p">{</span>
+        	<span class="nc">.wf-sourcesanspro-n3-active</span> <span class="k">&amp;</span><span class="o">,</span> <span class="nc">.wf-local</span> <span class="k">&amp;</span> <span class="p">{</span>
+        		<span class="nl">font-family</span><span class="p">:</span> <span class="s2">&quot;source_sans_prolight&quot;</span><span class="o">,</span> <span class="s2">&quot;Source Sans Pro&quot;</span><span class="o">,</span> <span class="s2">&quot;Helvetica Neue&quot;</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+        		<span class="nl">font-weight</span><span class="p">:</span> <span class="m">300</span><span class="p">;</span>
+        		<span class="nl">font-style</span><span class="p">:</span> <span class="nb">normal</span><span class="p">;</span>
+        		<span class="k">@if</span> <span class="nv">$fontSize</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="nv">$fontSize</span><span class="p">;}</span>
+        	<span class="p">}</span>
+        <span class="p">}</span>
+        </td></tr></tbody></table></pre>
+        <h2 id="include-the-fonts-in-your-styles">7. Include the fonts in your styles</h2>
+        
+        <p>Now you can easily include your fonts in your styles. In my case here is my basic CSS setup:</p>
+        
+        <pre class="highlight text"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div></td><td class="code">body {@include ssp-light;}
+        strong, b {@include ssp-bold;}
+        em, i {@include ssp-light-italic;}
+        strong &gt; em, em &gt; strong,
+        strong &gt; i, i &gt; strong,
+        b &gt; em, em &gt; b,
+        b &gt; i, i &gt; b {@include ssp-bold-italic;}
+        #{headings()} {@include roboto-slab-light;}
+        </td></tr></tbody></table></pre>
+      </article>
+      <div class="layout_footer">
+        <footer>
+          <p>&copy; 2012-2013 Orioltf, Oriol Torrent Florensa. All rights reserved.</p>
+        </footer>
+      </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+    <script>
+      !window.jQuery && document.write(unescape("%3Cscript src='assets/vendor/jquery-1.10.2.js'%3E%3C/script%3E"));
+      //window.jQuery || document.write(unescape("%3Cscript src='/assets/vendor/jquery.js'%3E%3C/script%3E"));
+    </script>
+    <script>
+      jQuery.noConflict();
+    </script>
+    <!--[if lt IE 9]>
+    <script>
+      if (!window.WebFont){
+      	var wf, s;
+      	wf = document.createElement('link');
+      	wf.href = '/assets/vendor/googleFonts/fonts.css';
+      	wf.type = 'text/css';
+      	wf.rel = 'stylesheet';
+      	wf.media = 'all';
+      	s = document.getElementsByTagName('link')[0];
+      	s.parentNode.insertBefore(wf, s);
+      	document.getElementsByTagName('html')[0].className += ' wf-local';
+      	if(window.jQuery) {
+      		clearTimeout(t);
+      		jQuery(document).trigger('wfActive');
+      	} else {
+      		t = setTimeout(function() {
+      			if(window.jQuery) {
+      				clearTimeout(t);
+      				jQuery(document).trigger('wfActive');
+      			}
+      		},500);
+      	}
+      }
+    </script>
+    <![endif]-->
+    <script src="../../../../../assets/js/orioltf.js?1381092528" type="text/javascript"></script>
+  </body>
+</html>
+

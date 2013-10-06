@@ -1,0 +1,263 @@
+<!--[if IE]>  <![endif]-->
+<!DOCTYPE html>
+<!--[if lte IE 6]> <html lang="en" class="no-js ie ie6 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="no-js ie ie7 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="no-js ie ie8 lte-ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="no-js ie ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>Implementing Webfonts with local fallback 1 || Oriol.tf</title>
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="True" name="HandheldFriendly">
+    <meta content="320" name="MobileOptimized">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Oriol.tf | Oriol Torrent Florensa" name="author">
+    <meta content="Google web fonts, or any other service, are great to add web fonts to your site. Nevertheless, you may want to have either the security to be independent from Google in case that their servers ever were down, or you to be able to develop your site in a completely off-line modus. Or even both at the same time." name="description">
+    <meta content="Frontend tools" name="keywords">
+    <link href="/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="http://orioltf.com/feed.atom" rel="alternate" title="Oriol.tf&amp;#039;s RSS Feed" type="application/atom+xml">
+    <link href="/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml">
+    <link href="http://orioltf.com/blog/2013/08/30/Implementing-google-webfonts-with-local-fallback/" rel="canonical">
+    <!-- Why stylesheets should be placed before scripts: http://uxmovement.com/content/why-you-should-place-style-sheets-before-scripts/ -->
+    <link href="../../../../../assets/css/orioltf.css?1381092531" media="all" rel="stylesheet" type="text/css" />
+    <script src="../../../../../assets/js/orioltf_head.js?1381092528" type="text/javascript"></script>
+  </head>
+  <body>
+    <!-- TODO: Define link targets -->
+    <div class="mod_skiplinks">
+      <ul>
+        <li>
+          <a accesskey="0" href="/" title="[ALT + 0]">Start page</a>
+        </li>
+        <li>
+          <a accesskey="1" href="#mainnav" title="[ALT + 1]">Skip to main navigation</a>
+        </li>
+        <li>
+          <a accesskey="2" href="#maincontent" title="[ALT + 2]">Skip to content</a>
+        </li>
+        <li>
+          <a accesskey="3" href="TO BE DEFINED" title="[ALT + 3]">Contact page</a>
+        </li>
+        <li>
+          <a accesskey="4" href="TO BE DEFINED" title="[ALT + 4]">Sitemap page</a>
+        </li>
+        <li>
+          <a accesskey="5" href="#search" title="[ALT + 5]">Skip to search</a>
+        </li>
+      </ul>
+    </div>
+    <div class="layout_header">
+      <header>
+        <div class="profilepic">
+          <img alt="Profile Picture" src="/assets/media/orioltf-avatar.png">
+        </div>
+        <nav class="mod-menu-main">
+          <ul class="menu">
+            <li>
+              <a href="/">
+                Blog
+              </a>
+            </li>
+            <li>
+              <a href="/web-portfolio">
+                WebShots
+              </a>
+            </li>
+            <li>
+              <a href="/photo-portfolio">
+                PhotoShots
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <p class="subtitle">
+          I write code.
+        </p>
+        <p class="subtitle">
+          I am frontend engineer living in Zürich, backed in Barcelona. I work at
+          <a href="http://unic.com">Unic.</a>
+          I'm father of a cute baby and a lifetime learner from everything frontend related.
+        </p>
+        <nav class="mod-social" id="sub-nav">
+          <ul>
+            <li>
+              <a class="google" href="http://gplus.to/orioltf" title="Google+">Google+</a>
+            </li>
+            <li>
+              <a class="twitter" href="http://www.twitter.com/orioltf" title="Twitter">Twitter</a>
+            </li>
+            <li>
+              <a class="github" href="http://www.github.com/orioltf" title="GitHub">GitHub</a>
+            </li>
+            <li>
+              <a class="linkedin" href="http://www.linkedin.com/in/oriol.torrent" title="LinkedIn">LinkedIn</a>
+            </li>
+            <li>
+              <a class="xing" href="http://www.xing.com/in/oriol.torrent" title="LinkedIn">Xing</a>
+            </li>
+            <li>
+              <a class="rss" href="/feed.atom" title="RSS">RSS</a>
+            </li>
+            <li>
+              <div class="no_facebook">No facebook</div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <div class="layout_content" id="maincontent">
+      <article>
+        <h1>
+          Implementing Webfonts with local fallback 1
+        </h1>
+        <p>In these articles I propose a methodology to <strong>implement web fonts</strong>, in this case from <a href="http://www.google.com/fonts/">Google Web fonts service</a>, <strong>with local fallback</strong>. Benefits from this methodology:</p>
+        
+        <ul>
+          <li>You can use the CDN from Google and therefor reduce the loading time of your site in case the user has already cached the font.</li>
+          <li>You can be quiet in case that Google ever removes the service or in the improbable case it would ever be down.</li>
+          <li>You can reliably develop in off-line modus.</li>
+        </ul>
+        
+        <p>Specifically in this first article, I’ll go through the first steps until the font files are ready.</p>
+        
+        <h2 id="understanding-the-method">0. Understanding the method</h2>
+        
+        <p>The method proposed here uses a couple of techniques to ensure that the fonts can be used first from the external server and then from the local server if the first option fails:</p>
+        
+        <ol>
+          <li>Google fonts will be loaded via JS to be able to track whether the fonts were loaded or not.</li>
+          <li>Google fonts uses the <strong>style-linking</strong> to serve the font styles. So we will use <strong>name-matching</strong> method to serve our font styles. Both together are the <strong>combined method</strong>, which you can find perfectly explained in SmashingMagazine:</li>
+        </ol>
+        
+        <blockquote>
+          <p>Franz, Laura. “Setting Weights And Styles With The @font-face Declaration”. SmashingMagazine. February 14th, 2013. August 30th, 2013. <a href="">http://coding.smashingmagazine.com/2013/02/14/setting-weights-and-styles-at-font-face-declaration/</a></p>
+        </blockquote>
+        
+        <h2 id="choosing-fonts">1. Choosing Fonts</h2>
+        
+        <p>First of all, of course, you should choose one or more fonts and font styles. Since we are using both style-linking and name linking we can take advantage from the benefits from both techniques, but we’ll also have to manage drawbacks from both techniques.</p>
+        
+        <p><strong>Drawback</strong>: Using style-linking, which is the technique used by Google on the font-styles they serve means that the number of fonts (font names) and styles (light, bold, italic and combinations) is limited due to… wait for it… Microsoft Internet Explorer! You can read more about this in the article from Smashing Magazine from above: Setting Weights And Styles With The @font-face Declaration. Then search inside the sub-title “Problem: Internet Explorer 7 and 8 can only apply up to four weights and styles to a single font-family name”.</p>
+        
+        <p>For this article I’ll use the fonts used in this page (note that from each family Google offers more derivatives):</p>
+        
+        <ol>
+          <li>Source Sans Pro:
+            <ol>
+              <li>Light 300</li>
+              <li>Light 300 italic</li>
+              <li>Semi-Bold 600</li>
+              <li>Semi-bold 600 italic</li>
+            </ol>
+          </li>
+          <li>Roboto Slab
+            <ol>
+              <li>Light 300</li>
+            </ol>
+          </li>
+        </ol>
+        
+        <h2 id="getting-the-fonts-ready">2. Getting the fonts ready</h2>
+        
+        <p>The first step, after choosing your font family and its derivatives, is to <strong>get all the font formats for each browser</strong>. Google is doing this for you behind the scenes and serves only the appropriate file format to each browser via server-side detection.</p>
+        
+        <p>To do so click on the arrow icon on the upper right corner to download the fonts in True Type Format (*.ttf):</p>
+        
+        <p><img src="/assets/media/blog/google-fonts-download-arrow.png" alt="Google fonts provides a link to download the selected fonts" /></p>
+        
+        <p>Pay attention: when you download the chosen fonts you’ll get the whole family for each font, while you’ll probably want only some of them. On our example I just want the 5 described above, out of the 16 downloaded.</p>
+        
+        <p>Then <strong>head over to <a href="http://www.fontsquirrel.com/tools/webfont-generator">FontSquirrel</a> to transform your ttf font files</strong> to the rest of the formats:</p>
+        
+        <ol>
+          <li>Upload only the ttf files that respond to the chosen fonts (max. 3 uploads at the same time)</li>
+          <li>Choose the “Expert” option to optimize the fonts</li>
+          <li>Formats: TrueType, WOFF, EOT Compressed, SVG</li>
+          <li>Truetype Hinting: Keep existing</li>
+          <li>CSS: make sure “Style linking” is not active</li>
+          <li>Check the Agreement</li>
+          <li>Click on “Download your kit”</li>
+        </ol>
+        
+        <p>You’ll see at the top of the table the conversion progress for each font you uploaded before getting a zip file with all the necessary files.</p>
+        
+        <p><img src="/assets/media/blog/fontsquirrel-fonts-downloaded.png" alt="FontSquirrel shows a green progress bar at the top for every uploaded font" /></p>
+        
+        <p>Now unzip the downloaded file and <strong>place the font files</strong> (only the *.ttf, *.eot, *.woff and *.svg files) <strong>in a folder from your project</strong>, in my case I placed them in “/assets/vendor/googleFonts/”, keeping there a separate folder for each font family. </p>
+        
+        <p><strong>Place also the “stylesheet.css” file in a folder from your project</strong>. This file contains the @font-face declarations and will be used when the fallback is activated. Remember to update the path to the fonts in this file. This path is relative to this file, not to the HTML document. In my case I placed it in “/assets/vendor/googleFonts/_fonts.css” (I’ve renamed it), so the URL to each font will have to contain only the folder name: <code>src: url('robotoSlab/robotoslab-light-webfont.eot?#iefix') format('embedded-opentype'),</code>. </p>
+        
+        <p>Lastly, in order to properly apply the <strong>combined method</strong> we need to update the @font-face declarations, by giving to each declaration its appropriate font-weight and font-style. For instance:</p>
+        
+        <pre class="highlight css"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div></td><td class="code"><span class="k">@font-face</span> <span class="p">{</span>
+        	<span class="nl">font-family</span><span class="p">:</span> <span class="s2">'source_sans_proSBdIt'</span><span class="p">;</span>
+        	<span class="nl">src</span><span class="p">:</span> <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.eot')</span><span class="p">;</span>
+        	<span class="nl">src</span><span class="p">:</span> <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.eot?#iefix')</span> <span class="n">format</span><span class="p">(</span><span class="s2">'embedded-opentype'</span><span class="p">),</span>
+        		 <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.woff')</span> <span class="n">format</span><span class="p">(</span><span class="s2">'woff'</span><span class="p">),</span>
+        		 <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.ttf')</span> <span class="n">format</span><span class="p">(</span><span class="s2">'truetype'</span><span class="p">),</span>
+        		 <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.svg#source_sans_proSBdIt')</span> <span class="n">format</span><span class="p">(</span><span class="s2">'svg'</span><span class="p">);</span>
+        	<span class="nl">font-weight</span><span class="p">:</span> <span class="nb">normal</span><span class="p">;</span>
+        	<span class="nl">font-style</span><span class="p">:</span> <span class="nb">normal</span><span class="p">;</span>
+        <span class="p">}</span>
+        </td></tr></tbody></table></pre>
+        <p>should become:</p>
+        
+        <pre class="highlight css"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div></td><td class="code"><span class="k">@font-face</span> <span class="p">{</span>
+        	<span class="nl">font-family</span><span class="p">:</span> <span class="s2">'source_sans_proSBdIt'</span><span class="p">;</span>
+        	<span class="nl">src</span><span class="p">:</span> <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.eot')</span><span class="p">;</span>
+        	<span class="nl">src</span><span class="p">:</span> <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.eot?#iefix')</span> <span class="n">format</span><span class="p">(</span><span class="s2">'embedded-opentype'</span><span class="p">),</span>
+        		 <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.woff')</span> <span class="n">format</span><span class="p">(</span><span class="s2">'woff'</span><span class="p">),</span>
+        		 <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.ttf')</span> <span class="n">format</span><span class="p">(</span><span class="s2">'truetype'</span><span class="p">),</span>
+        		 <span class="sx">url('sourceSansPro/sourcesanspro-semibolditalic-webfont.svg#source_sans_proSBdIt')</span> <span class="n">format</span><span class="p">(</span><span class="s2">'svg'</span><span class="p">);</span>
+        	<span class="nl">font-weight</span><span class="p">:</span> <span class="m">600</span><span class="p">;</span>
+        	<span class="nl">font-style</span><span class="p">:</span> <span class="nb">italic</span><span class="p">;</span>
+        <span class="p">}</span>
+        </td></tr></tbody></table></pre>
+      </article>
+      <div class="layout_footer">
+        <footer>
+          <p>&copy; 2012-2013 Orioltf, Oriol Torrent Florensa. All rights reserved.</p>
+        </footer>
+      </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+    <script>
+      !window.jQuery && document.write(unescape("%3Cscript src='assets/vendor/jquery-1.10.2.js'%3E%3C/script%3E"));
+      //window.jQuery || document.write(unescape("%3Cscript src='/assets/vendor/jquery.js'%3E%3C/script%3E"));
+    </script>
+    <script>
+      jQuery.noConflict();
+    </script>
+    <!--[if lt IE 9]>
+    <script>
+      if (!window.WebFont){
+      	var wf, s;
+      	wf = document.createElement('link');
+      	wf.href = '/assets/vendor/googleFonts/fonts.css';
+      	wf.type = 'text/css';
+      	wf.rel = 'stylesheet';
+      	wf.media = 'all';
+      	s = document.getElementsByTagName('link')[0];
+      	s.parentNode.insertBefore(wf, s);
+      	document.getElementsByTagName('html')[0].className += ' wf-local';
+      	if(window.jQuery) {
+      		clearTimeout(t);
+      		jQuery(document).trigger('wfActive');
+      	} else {
+      		t = setTimeout(function() {
+      			if(window.jQuery) {
+      				clearTimeout(t);
+      				jQuery(document).trigger('wfActive');
+      			}
+      		},500);
+      	}
+      }
+    </script>
+    <![endif]-->
+    <script src="../../../../../assets/js/orioltf.js?1381092528" type="text/javascript"></script>
+  </body>
+</html>
+

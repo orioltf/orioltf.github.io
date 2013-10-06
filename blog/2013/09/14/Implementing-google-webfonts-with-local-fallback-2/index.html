@@ -1,0 +1,345 @@
+<!--[if IE]>  <![endif]-->
+<!DOCTYPE html>
+<!--[if lte IE 6]> <html lang="en" class="no-js ie ie6 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="no-js ie ie7 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="no-js ie ie8 lte-ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="no-js ie ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>Implementing Webfonts with local fallback 2 || Oriol.tf</title>
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="True" name="HandheldFriendly">
+    <meta content="320" name="MobileOptimized">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Oriol.tf | Oriol Torrent Florensa" name="author">
+    <meta content="Second part from the series on how to implement Webfonts with local fallback. Once we have the font files ready we must follow some steps in order to include the fonts from the server (Google in this case) and then provide a fallback system." name="description">
+    <meta content="Frontend tools" name="keywords">
+    <link href="/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="http://orioltf.com/feed.atom" rel="alternate" title="Oriol.tf&amp;#039;s RSS Feed" type="application/atom+xml">
+    <link href="/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml">
+    <link href="http://orioltf.com/blog/2013/09/14/Implementing-google-webfonts-with-local-fallback-2/" rel="canonical">
+    <!-- Why stylesheets should be placed before scripts: http://uxmovement.com/content/why-you-should-place-style-sheets-before-scripts/ -->
+    <link href="../../../../../assets/css/orioltf.css?1381092531" media="all" rel="stylesheet" type="text/css" />
+    <script src="../../../../../assets/js/orioltf_head.js?1381092528" type="text/javascript"></script>
+  </head>
+  <body>
+    <!-- TODO: Define link targets -->
+    <div class="mod_skiplinks">
+      <ul>
+        <li>
+          <a accesskey="0" href="/" title="[ALT + 0]">Start page</a>
+        </li>
+        <li>
+          <a accesskey="1" href="#mainnav" title="[ALT + 1]">Skip to main navigation</a>
+        </li>
+        <li>
+          <a accesskey="2" href="#maincontent" title="[ALT + 2]">Skip to content</a>
+        </li>
+        <li>
+          <a accesskey="3" href="TO BE DEFINED" title="[ALT + 3]">Contact page</a>
+        </li>
+        <li>
+          <a accesskey="4" href="TO BE DEFINED" title="[ALT + 4]">Sitemap page</a>
+        </li>
+        <li>
+          <a accesskey="5" href="#search" title="[ALT + 5]">Skip to search</a>
+        </li>
+      </ul>
+    </div>
+    <div class="layout_header">
+      <header>
+        <div class="profilepic">
+          <img alt="Profile Picture" src="/assets/media/orioltf-avatar.png">
+        </div>
+        <nav class="mod-menu-main">
+          <ul class="menu">
+            <li>
+              <a href="/">
+                Blog
+              </a>
+            </li>
+            <li>
+              <a href="/web-portfolio">
+                WebShots
+              </a>
+            </li>
+            <li>
+              <a href="/photo-portfolio">
+                PhotoShots
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <p class="subtitle">
+          I write code.
+        </p>
+        <p class="subtitle">
+          I am frontend engineer living in Zürich, backed in Barcelona. I work at
+          <a href="http://unic.com">Unic.</a>
+          I'm father of a cute baby and a lifetime learner from everything frontend related.
+        </p>
+        <nav class="mod-social" id="sub-nav">
+          <ul>
+            <li>
+              <a class="google" href="http://gplus.to/orioltf" title="Google+">Google+</a>
+            </li>
+            <li>
+              <a class="twitter" href="http://www.twitter.com/orioltf" title="Twitter">Twitter</a>
+            </li>
+            <li>
+              <a class="github" href="http://www.github.com/orioltf" title="GitHub">GitHub</a>
+            </li>
+            <li>
+              <a class="linkedin" href="http://www.linkedin.com/in/oriol.torrent" title="LinkedIn">LinkedIn</a>
+            </li>
+            <li>
+              <a class="xing" href="http://www.xing.com/in/oriol.torrent" title="LinkedIn">Xing</a>
+            </li>
+            <li>
+              <a class="rss" href="/feed.atom" title="RSS">RSS</a>
+            </li>
+            <li>
+              <div class="no_facebook">No facebook</div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <div class="layout_content" id="maincontent">
+      <article>
+        <h1>
+          Implementing Webfonts with local fallback 2
+        </h1>
+        <p>This is the second part of a series on <strong>how to implement Webfonts with local fallback</strong>. Please check the <a href="/blog/2013/08/30/Implementing-google-webfonts-with-local-fallback/">previous article</a> in order to get your fonts ready. In this article we will be including the webfonts from the server, and the we will add 2 fallbacks: one for normal browsers, and another one for legacy browsers (namely, oldIEs).</p>
+        
+        <h2 id="including-the-fonts-for-normal-browsers">3. Including the fonts for normal browsers</h2>
+        
+        <p>In the screen from Google choose the tab “javascript” to copy the necessary code to include the fonts via javascript. This is, of course, not the easiest option, but it offers more refined options for us to track whether the fonts can or not be loaded. Those users without JS won’t get the fonts, but those users are either advanced users who try this just for fun or for testing, or users with old machines which anyway do not support them. So we really make no worries about them.</p>
+        
+        <p><img src="/assets/media/blog/google-fonts-js-tab.png" alt="Google offers 3 options to include fonts, displayed in tabs. We choose the javascript tab." /></p>
+        
+        <p>So <strong>copy the JS code from Google and paste it at the top of the JS file</strong> that you’ll load at the end of your html file. You could also load it at the head of your HTML in order to avoid flickering when fonts are loaded. But in my experience, if you load more than 1 or 2 font file it flickers anyway because the browser is faster at rendering the rest of the HTML document than the fonts.</p>
+        
+        <p>Here a copy from the code for the fonts listed above:</p>
+        
+        <pre class="highlight javascript"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div><div class="lineno">11</div><div class="lineno">12</div><div class="lineno">13</div><div class="lineno">14</div><div class="lineno">15</div><div class="lineno">16</div></td><td class="code">
+        <span class="nx">WebFontConfig</span> <span class="o">=</span> <span class="p">{</span>
+        	<span class="na">google</span><span class="p">:</span> <span class="p">{</span> <span class="na">families</span><span class="p">:</span> <span class="p">[</span> 
+        		<span class="s1">'Source+Sans+Pro:300,600,300italic,600italic:latin'</span><span class="p">,</span> 
+        		<span class="s1">'Roboto+Slab:300:latin'</span> 
+        	<span class="p">]</span> <span class="p">}</span>
+        <span class="p">};</span>
+        <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        	<span class="kd">var</span> <span class="nx">wf</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'script'</span><span class="p">);</span>
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'https:'</span> <span class="o">==</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="p">?</span> <span class="s1">'https'</span> <span class="p">:</span> <span class="s1">'http'</span><span class="p">)</span> <span class="o">+</span>
+        		<span class="s1">'://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js'</span><span class="p">;</span>
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">'text/javascript'</span><span class="p">;</span>
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="s1">'true'</span><span class="p">;</span>
+        	<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'script'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        	<span class="nx">s</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">wf</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+        <span class="p">})();</span>
+        </td></tr></tbody></table></pre>
+        <p>This piece of code is the <em>Web Font Loader</em>. This script was co-developed by Typekit and Google, and it can load fonts from several services as well as self-hosted fonts. <a href="https://github.com/typekit/webfontloader">Source code in Github</a>. <strong>The Web Font Loader provides several events we can use.  It also provides some CSS class names</strong> that will be placed in the HTML element. We’ll be using both things.</p>
+        
+        <p>There are some drawbacks when fonts are loading: the load is asynchronous, which means that your JS may have already executed either partly or completely. Let’s say for instance that you have a plug-in called sameHeight() that calculates heights for some boxes: since the height of an element depends of its content and this one depends on the font family, you’ll need to re-calculate the height once the web fonts become <strong>active</strong>.</p>
+        
+        <p>To get around this, we’ll be using the <strong>active event</strong> from the <em>Web Font Loader</em>. We can set a callback function that will be executed as soon as the fonts are rendered: then the <strong>active event</strong> is fired. And in that function we can trigger a custom event in jQuery (called “wfActive” in the code below) that can be used, for instance, in our plug-in <code class="language-javascript">sameHeight()</code> in order to force the re-calculation. Or wherever we may need once the fonts become active.</p>
+        
+        <pre class="highlight javascript"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div><div class="lineno">11</div><div class="lineno">12</div><div class="lineno">13</div><div class="lineno">14</div><div class="lineno">15</div><div class="lineno">16</div><div class="lineno">17</div><div class="lineno">18</div><div class="lineno">19</div><div class="lineno">20</div><div class="lineno">21</div><div class="lineno">22</div><div class="lineno">23</div><div class="lineno">24</div><div class="lineno">25</div><div class="lineno">26</div><div class="lineno">27</div><div class="lineno">28</div><div class="lineno">29</div><div class="lineno">30</div><div class="lineno">31</div></td><td class="code">
+        <span class="kd">var</span> <span class="nx">t</span><span class="p">;</span>
+        <span class="nx">WebFontConfig</span> <span class="o">=</span> <span class="p">{</span>
+        	<span class="na">google</span><span class="p">:</span> <span class="p">{</span>
+        		<span class="na">families</span><span class="p">:</span> <span class="p">[</span>
+        			<span class="s1">'Source+Sans+Pro:300,600,300italic,600italic:latin'</span><span class="p">,</span>
+        			<span class="s1">'Roboto+Slab:300:latin'</span>
+        		<span class="p">]</span>
+        	<span class="p">},</span>
+        	<span class="na">active</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        		<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">)</span> <span class="p">{</span>
+        			<span class="nx">jQuery</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'wfActive'</span><span class="p">);</span>
+        		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        			<span class="nx">t</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        				<span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">)</span> <span class="p">{</span>
+        					<span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+        					<span class="nx">jQuery</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'wfActive'</span><span class="p">);</span>
+        				<span class="p">}</span>
+        			<span class="p">},</span><span class="mi">500</span><span class="p">);</span>
+        		<span class="p">}</span>
+        	<span class="p">}</span>
+        <span class="p">};</span>
+        <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        	<span class="kd">var</span> <span class="nx">wf</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'script'</span><span class="p">);</span>
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'https:'</span> <span class="o">==</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="p">?</span> <span class="s1">'https'</span> <span class="p">:</span> <span class="s1">'http'</span><span class="p">)</span> <span class="o">+</span>
+        		<span class="s1">'://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js'</span><span class="p">;</span>
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">'text/javascript'</span><span class="p">;</span>
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="s1">'true'</span><span class="p">;</span>
+        	<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'script'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        	<span class="nx">s</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">wf</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+        <span class="p">})();</span>
+        </td></tr></tbody></table></pre>
+        <p>You can then use your custom event:</p>
+        
+        <pre class="highlight javascript"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div></td><td class="code">
+        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'wfActive'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        	<span class="c1">// Your code
+        </span><span class="p">});</span>
+        </td></tr></tbody></table></pre><p>As you can see, I check if the jQuery object is already there. If not I just give it another try, after half a second to trigger the jQuery event. I think that half a second is time enough for a Browser to render the page and execute jQuery. If not… well I should either re-think the web I’m working on, or rethink this parameter ;)</p>
+        
+        <h2 id="setting-a-fallback-for-offline-development">4. Setting a fallback for offline development</h2>
+        
+        <p>As you may have notice, there is a second part in the code from google: the self executing function
+        from the half below <code class="language-javascript">(function() { ... })();</code>. It asynchronously loads the Web Font Loader library, while the first half from the code was the configuration.</p>
+        
+        <p>This parts sets a new <code class="language-html">&lt;script /&gt;</code> element. And most of the modern browsers implement an <strong><code>error</code></strong> event that is fired when the script is not loaded. So we can use this to:</p>
+        
+        <ol>
+          <li>Create a new <link /> element to load a CSS file from our server with the @font-face definitions.</li>
+          <li>Sets a custom class “wf-local” in the HTML element, just in case we would like to react in CSS or JS.</li>
+          <li>Triggers the “wfActive” event in case jQuery is there.</li>
+        </ol>
+        
+        <pre class="highlight javascript"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div><div class="lineno">11</div><div class="lineno">12</div><div class="lineno">13</div><div class="lineno">14</div><div class="lineno">15</div><div class="lineno">16</div><div class="lineno">17</div><div class="lineno">18</div><div class="lineno">19</div><div class="lineno">20</div><div class="lineno">21</div><div class="lineno">22</div><div class="lineno">23</div><div class="lineno">24</div><div class="lineno">25</div><div class="lineno">26</div><div class="lineno">27</div><div class="lineno">28</div><div class="lineno">29</div><div class="lineno">30</div><div class="lineno">31</div><div class="lineno">32</div><div class="lineno">33</div><div class="lineno">34</div><div class="lineno">35</div><div class="lineno">36</div><div class="lineno">37</div><div class="lineno">38</div><div class="lineno">39</div><div class="lineno">40</div><div class="lineno">41</div><div class="lineno">42</div><div class="lineno">43</div><div class="lineno">44</div><div class="lineno">45</div><div class="lineno">46</div><div class="lineno">47</div><div class="lineno">48</div><div class="lineno">49</div><div class="lineno">50</div><div class="lineno">51</div><div class="lineno">52</div><div class="lineno">53</div><div class="lineno">54</div><div class="lineno">55</div></td><td class="code">
+        <span class="kd">var</span> <span class="nx">t</span><span class="p">;</span>
+        <span class="nx">WebFontConfig</span> <span class="o">=</span> <span class="p">{</span>
+        	<span class="na">google</span><span class="p">:</span> <span class="p">{</span>
+        		<span class="na">families</span><span class="p">:</span> <span class="p">[</span>
+        			<span class="s1">'Source+Sans+Pro:300,600,300italic,600italic:latin'</span><span class="p">,</span>
+        			<span class="s1">'Roboto+Slab:300:latin'</span>
+        		<span class="p">]</span>
+        	<span class="p">},</span>
+        	<span class="na">active</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        		<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">)</span> <span class="p">{</span>
+        			<span class="nx">jQuery</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'wfActive'</span><span class="p">);</span>
+        		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        			<span class="nx">t</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        				<span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">)</span> <span class="p">{</span>
+        					<span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+        					<span class="nx">jQuery</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'wfActive'</span><span class="p">);</span>
+        				<span class="p">}</span>
+        			<span class="p">},</span><span class="mi">500</span><span class="p">);</span>
+        		<span class="p">}</span>
+        	<span class="p">}</span>
+        <span class="p">};</span>
+        
+        <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        	<span class="kd">var</span> <span class="nx">wf</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">t</span><span class="p">;</span>
+        	<span class="nx">wf</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'script'</span><span class="p">);</span>
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'https:'</span> <span class="o">==</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="p">?</span> <span class="s1">'https'</span> <span class="p">:</span> <span class="s1">'http'</span><span class="p">)</span> <span class="o">+</span> 
+        		<span class="s1">'://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js'</span><span class="p">;</span>
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">'text/javascript'</span><span class="p">;</span>
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="s1">'true'</span><span class="p">;</span>
+        	<span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'script'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        	<span class="nx">s</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">wf</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+        
+        	<span class="nx">wf</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        		<span class="nx">wf</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'link'</span><span class="p">);</span>
+        		<span class="nx">wf</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s1">'/assets/vendor/googleFonts/fonts.css'</span><span class="p">;</span>
+        		<span class="nx">wf</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">'text/css'</span><span class="p">;</span>
+        		<span class="nx">wf</span><span class="p">.</span><span class="nx">rel</span> <span class="o">=</span> <span class="s1">'stylesheet'</span><span class="p">;</span>
+        		<span class="nx">wf</span><span class="p">.</span><span class="nx">media</span> <span class="o">=</span> <span class="s1">'all'</span><span class="p">;</span>
+        		<span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'link'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        		<span class="nx">s</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">wf</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+        		<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'html'</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">' wf-local'</span><span class="p">;</span>
+        		<span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">)</span> <span class="p">{</span>
+        			<span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+        			<span class="nx">jQuery</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'wfActive'</span><span class="p">);</span>
+        		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        			<span class="nx">t</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        				<span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">)</span> <span class="p">{</span>
+        					<span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+        					<span class="nx">jQuery</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'wfActive'</span><span class="p">);</span>
+        				<span class="p">}</span>
+        			<span class="p">},</span><span class="mi">500</span><span class="p">);</span>
+        		<span class="p">}</span>
+        	<span class="p">};</span>
+        <span class="p">})();</span>
+        </td></tr></tbody></table></pre>
+        <h2 id="onerror-fallback-for-legacy-browsers">5. onerror fallback for legacy browsers</h2>
+        
+        <p>OldIEs and a couple of pretty old Firefox version have either poor or no implementation of the <code class="language-javascript">onerror</code> method (<a href="">http://www.quirksmode.org/dom/events/error.html</a>), so we need to provide another solution for those browsers. Since most of the Firefox user base is pretty up to date with their browser, I’ll wrap my JS code in a conditional comment.</p>
+        
+        <p>This time the code will be placed at the very end of our document, and since we cannot test if the browser properly implements the <code class="language-javascript">onerror</code> method, we’re going to test if the <code class="language-javascript">WebFont</code> object is available. This object is set by the Web Font Loader library, which should have been downloaded by the Web Font Loader, that added the script <code>'://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js'</code>.</p>
+        
+        <p>The target of the JS is the same than before:</p>
+        
+        <ol>
+          <li>Create a new <link /> element to load the CSS file wif @font-face definitions to our fonts.</li>
+          <li>Set a custom class “wf-local” in the HTML element.</li>
+          <li>Trigger the “wfActive” event in case jQuery is there.</li>
+        </ol>
+        
+        <pre class="highlight javascript"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div><div class="lineno">11</div><div class="lineno">12</div><div class="lineno">13</div><div class="lineno">14</div><div class="lineno">15</div><div class="lineno">16</div><div class="lineno">17</div><div class="lineno">18</div><div class="lineno">19</div><div class="lineno">20</div><div class="lineno">21</div><div class="lineno">22</div><div class="lineno">23</div><div class="lineno">24</div><div class="lineno">25</div><div class="lineno">26</div></td><td class="code"><span class="c">&lt;!--</span><span class="p">[</span><span class="k">if</span> <span class="nx">lt</span> <span class="nx">IE</span> <span class="mi">9</span><span class="p">]</span><span class="o">&gt;</span>
+        	<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+        		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">WebFont</span><span class="p">){</span>
+        			<span class="kd">var</span> <span class="nx">wf</span><span class="p">,</span> <span class="nx">s</span><span class="p">;</span>
+        			<span class="nx">wf</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'link'</span><span class="p">);</span>
+        			<span class="nx">wf</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s1">'/assets/vendor/googleFonts/fonts.css'</span><span class="p">;</span>
+        			<span class="nx">wf</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">'text/css'</span><span class="p">;</span>
+        			<span class="nx">wf</span><span class="p">.</span><span class="nx">rel</span> <span class="o">=</span> <span class="s1">'stylesheet'</span><span class="p">;</span>
+        			<span class="nx">wf</span><span class="p">.</span><span class="nx">media</span> <span class="o">=</span> <span class="s1">'all'</span><span class="p">;</span>
+        			<span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'link'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        			<span class="nx">s</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">wf</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+        			<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'html'</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">' wf-local'</span><span class="p">;</span>
+        			<span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">)</span> <span class="p">{</span>
+        				<span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+        				<span class="nx">jQuery</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'wfActive'</span><span class="p">);</span>
+        			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        				<span class="nx">t</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        					<span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">)</span> <span class="p">{</span>
+        						<span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+        						<span class="nx">jQuery</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'wfActive'</span><span class="p">);</span>
+        					<span class="p">}</span>
+        				<span class="p">},</span><span class="mi">500</span><span class="p">);</span>
+        			<span class="p">}</span>
+        		<span class="p">}</span>
+        	<span class="o">&lt;</span><span class="sr">/</span><span class="err">script&gt;</span>
+        <span class="o">&lt;!</span><span class="p">[</span><span class="nx">endif</span><span class="p">]</span><span class="o">--&gt;</span>
+        </td></tr></tbody></table></pre>
+      </article>
+      <div class="layout_footer">
+        <footer>
+          <p>&copy; 2012-2013 Orioltf, Oriol Torrent Florensa. All rights reserved.</p>
+        </footer>
+      </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+    <script>
+      !window.jQuery && document.write(unescape("%3Cscript src='assets/vendor/jquery-1.10.2.js'%3E%3C/script%3E"));
+      //window.jQuery || document.write(unescape("%3Cscript src='/assets/vendor/jquery.js'%3E%3C/script%3E"));
+    </script>
+    <script>
+      jQuery.noConflict();
+    </script>
+    <!--[if lt IE 9]>
+    <script>
+      if (!window.WebFont){
+      	var wf, s;
+      	wf = document.createElement('link');
+      	wf.href = '/assets/vendor/googleFonts/fonts.css';
+      	wf.type = 'text/css';
+      	wf.rel = 'stylesheet';
+      	wf.media = 'all';
+      	s = document.getElementsByTagName('link')[0];
+      	s.parentNode.insertBefore(wf, s);
+      	document.getElementsByTagName('html')[0].className += ' wf-local';
+      	if(window.jQuery) {
+      		clearTimeout(t);
+      		jQuery(document).trigger('wfActive');
+      	} else {
+      		t = setTimeout(function() {
+      			if(window.jQuery) {
+      				clearTimeout(t);
+      				jQuery(document).trigger('wfActive');
+      			}
+      		},500);
+      	}
+      }
+    </script>
+    <![endif]-->
+    <script src="../../../../../assets/js/orioltf.js?1381092528" type="text/javascript"></script>
+  </body>
+</html>
+

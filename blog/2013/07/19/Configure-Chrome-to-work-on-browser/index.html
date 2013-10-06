@@ -1,0 +1,184 @@
+<!--[if IE]>  <![endif]-->
+<!DOCTYPE html>
+<!--[if lte IE 6]> <html lang="en" class="no-js ie ie6 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="no-js ie ie7 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="no-js ie ie8 lte-ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="no-js ie ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>Configure Chrome to work on browser || Oriol.tf</title>
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="True" name="HandheldFriendly">
+    <meta content="320" name="MobileOptimized">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Oriol.tf | Oriol Torrent Florensa" name="author">
+    <meta content="Step-by-step guide to configure Google Chrome to edit local files so it is not needed to leave DevTools." name="description">
+    <meta content="Frontend tools" name="keywords">
+    <link href="/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="http://orioltf.com/feed.atom" rel="alternate" title="Oriol.tf&amp;#039;s RSS Feed" type="application/atom+xml">
+    <link href="/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml">
+    <link href="http://orioltf.com/blog/2013/07/19/Configure-Chrome-to-work-on-browser/" rel="canonical">
+    <!-- Why stylesheets should be placed before scripts: http://uxmovement.com/content/why-you-should-place-style-sheets-before-scripts/ -->
+    <link href="../../../../../assets/css/orioltf.css?1381092531" media="all" rel="stylesheet" type="text/css" />
+    <script src="../../../../../assets/js/orioltf_head.js?1381092528" type="text/javascript"></script>
+  </head>
+  <body>
+    <!-- TODO: Define link targets -->
+    <div class="mod_skiplinks">
+      <ul>
+        <li>
+          <a accesskey="0" href="/" title="[ALT + 0]">Start page</a>
+        </li>
+        <li>
+          <a accesskey="1" href="#mainnav" title="[ALT + 1]">Skip to main navigation</a>
+        </li>
+        <li>
+          <a accesskey="2" href="#maincontent" title="[ALT + 2]">Skip to content</a>
+        </li>
+        <li>
+          <a accesskey="3" href="TO BE DEFINED" title="[ALT + 3]">Contact page</a>
+        </li>
+        <li>
+          <a accesskey="4" href="TO BE DEFINED" title="[ALT + 4]">Sitemap page</a>
+        </li>
+        <li>
+          <a accesskey="5" href="#search" title="[ALT + 5]">Skip to search</a>
+        </li>
+      </ul>
+    </div>
+    <div class="layout_header">
+      <header>
+        <div class="profilepic">
+          <img alt="Profile Picture" src="/assets/media/orioltf-avatar.png">
+        </div>
+        <nav class="mod-menu-main">
+          <ul class="menu">
+            <li>
+              <a href="/">
+                Blog
+              </a>
+            </li>
+            <li>
+              <a href="/web-portfolio">
+                WebShots
+              </a>
+            </li>
+            <li>
+              <a href="/photo-portfolio">
+                PhotoShots
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <p class="subtitle">
+          I write code.
+        </p>
+        <p class="subtitle">
+          I am frontend engineer living in Zürich, backed in Barcelona. I work at
+          <a href="http://unic.com">Unic.</a>
+          I'm father of a cute baby and a lifetime learner from everything frontend related.
+        </p>
+        <nav class="mod-social" id="sub-nav">
+          <ul>
+            <li>
+              <a class="google" href="http://gplus.to/orioltf" title="Google+">Google+</a>
+            </li>
+            <li>
+              <a class="twitter" href="http://www.twitter.com/orioltf" title="Twitter">Twitter</a>
+            </li>
+            <li>
+              <a class="github" href="http://www.github.com/orioltf" title="GitHub">GitHub</a>
+            </li>
+            <li>
+              <a class="linkedin" href="http://www.linkedin.com/in/oriol.torrent" title="LinkedIn">LinkedIn</a>
+            </li>
+            <li>
+              <a class="xing" href="http://www.xing.com/in/oriol.torrent" title="LinkedIn">Xing</a>
+            </li>
+            <li>
+              <a class="rss" href="/feed.atom" title="RSS">RSS</a>
+            </li>
+            <li>
+              <div class="no_facebook">No facebook</div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <div class="layout_content" id="maincontent">
+      <article>
+        <h1>
+          Configure Chrome to work on browser
+        </h1>
+        <p>This is a step-by-step guide to configure Chrome to work on browser. This enables editing and saving local files and thanks to this, it is not needed to leave DevTools in your workflow.</p>
+        
+        <ol>
+          <li>Open chrome://flags in a new tab in Chrome</li>
+          <li>Activate “Enable Developer Tools experiments”</li>
+          <li>Open the dev tools</li>
+          <li>Go to the dev tools settings (press “?” in keyboard)</li>
+          <li>Go to tab “Experiments”</li>
+          <li>Enable option “File system folders in Sources Panel”</li>
+          <li>Enable option “CSS Regions Support”</li>
+          <li>Enable option “Support for Sass” (if you use sass command directly, not for MM)</li>
+          <li>Restart dev tools (or even Chrome sometimes)</li>
+          <li>Go again to the dev tools settings (press “?” in keyboard)</li>
+          <li>You’ll have a new tab called “Workspace”</li>
+          <li>Add a file system (path to your static page folder)</li>
+          <li>Accept the message (yellow bar) giving Chrome access to the Filesystem</li>
+          <li>Restart dev tools (or even Chrome sometimes)</li>
+          <li>In “sources tab” the page is now represented by a folder icon, not by a greyed-world icon.</li>
+          <li>Choose one of the resources in this folder to change it and see live the changes in the page. (You can try CMD+o to open a file in the sublime cmd+p way)</li>
+          <li>CMD+s to save it to disc.</li>
+        </ol>
+        
+        <p>References
+        * http://remysharp.com/2013/07/18/my-workflow-v3-full-coding-stack/</p>
+      </article>
+      <div class="layout_footer">
+        <footer>
+          <p>&copy; 2012-2013 Orioltf, Oriol Torrent Florensa. All rights reserved.</p>
+        </footer>
+      </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+    <script>
+      !window.jQuery && document.write(unescape("%3Cscript src='assets/vendor/jquery-1.10.2.js'%3E%3C/script%3E"));
+      //window.jQuery || document.write(unescape("%3Cscript src='/assets/vendor/jquery.js'%3E%3C/script%3E"));
+    </script>
+    <script>
+      jQuery.noConflict();
+    </script>
+    <!--[if lt IE 9]>
+    <script>
+      if (!window.WebFont){
+      	var wf, s;
+      	wf = document.createElement('link');
+      	wf.href = '/assets/vendor/googleFonts/fonts.css';
+      	wf.type = 'text/css';
+      	wf.rel = 'stylesheet';
+      	wf.media = 'all';
+      	s = document.getElementsByTagName('link')[0];
+      	s.parentNode.insertBefore(wf, s);
+      	document.getElementsByTagName('html')[0].className += ' wf-local';
+      	if(window.jQuery) {
+      		clearTimeout(t);
+      		jQuery(document).trigger('wfActive');
+      	} else {
+      		t = setTimeout(function() {
+      			if(window.jQuery) {
+      				clearTimeout(t);
+      				jQuery(document).trigger('wfActive');
+      			}
+      		},500);
+      	}
+      }
+    </script>
+    <![endif]-->
+    <script src="../../../../../assets/js/orioltf.js?1381092528" type="text/javascript"></script>
+  </body>
+</html>
+
